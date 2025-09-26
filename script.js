@@ -1,7 +1,7 @@
 
     // Data structure for questions
     let questions = JSON.parse(localStorage.getItem('interviewQuestions')) || [];
-    let categories = ['JavaScript', 'React', 'CSS', 'HTML', 'Node.js', 'HR Questions', 'Data Structures', 'Algorithms'];
+    let categories = ['introduction', 'project explain', 'Bootstrap', 'tailwind css', 'JavaScript', 'React', 'CSS', 'HTML', 'Node.js', 'HR Questions', 'Data Structures', 'Algorithms'];
     let currentCategory = 'all';
     let currentFilter = 'all';
     let editingQuestionId = null;
