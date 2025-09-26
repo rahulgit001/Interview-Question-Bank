@@ -1,170 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InterviewPrep Pro - Question Bank</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InterviewPrep Pro - Question Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- Navigation Header -->
-    <header class="header">
-        <div class="container">
-            <h1><i class="fas fa-graduation-cap"></i> InterviewPrep Pro</h1>
-            <div class="header-actions">
-                <button id="add-question-btn" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Add Question
-                </button>
-                <button id="random-mode-btn" class="btn btn-secondary">
-                    <i class="fas fa-random"></i> Random Mode
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <!-- Search Bar -->
-                <div class="search-container">
-                    <input type="text" id="search-input" placeholder="Search questions...">
-                    <i class="fas fa-search"></i>
-                </div>
-
-                <!-- Categories -->
-                <div class="categories">
-                    <h3>Categories</h3>
-                    <ul id="categories-list">
-                        <!-- Categories will be populated by JavaScript -->
-                    </ul>
-                </div>
-
-                <!-- Progress Stats -->
-                <div class="progress-stats">
-                    <h3>Your Progress</h3>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <span class="stat-value" id="total-questions">0</span>
-                            <span class="stat-label">Total Questions</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value" id="reviewed-questions">0</span>
-                            <span class="stat-label">Reviewed</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-value" id="favorite-questions">0</span>
-                            <span class="stat-label">Favorites</span>
-                        </div>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progress-fill"></div>
-                    </div>
-                    <p class="progress-text" id="progress-text">0% Complete</p>
-                </div>
-            </aside>
-
-            <!-- Question List -->
-            <section class="question-list-container">
-                <div class="question-list-header">
-                    <h2 id="current-category">All Questions</h2>
-                    <div class="filter-options">
-                        <button id="filter-all" class="filter-btn active">All</button>
-                        <button id="filter-favorites" class="filter-btn">
-                            <i class="fas fa-star"></i> Favorites
-                        </button>
-                        <button id="filter-unreviewed" class="filter-btn">Unreviewed</button>
-                    </div>
-                </div>
-
-                <div class="question-list" id="question-list">
-                    <!-- Questions will be populated by JavaScript -->
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <!-- Add/Edit Question Modal -->
-    <div id="question-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modal-title">Add New Question</h2>
-                <span class="close">&times;</span>
-            </div>
-            <form id="question-form">
-                <div class="form-group">
-                    <label for="question-text">Question</label>
-                    <textarea id="question-text" placeholder="Enter your question..." required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="answer-text">Answer</label>
-                    <textarea id="answer-text" placeholder="Enter the answer..." required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="question-category">Category</label>
-                    <select id="question-category" required>
-                        <!-- Categories will be populated by JavaScript -->
-                    </select>
-                </div>
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="is-favorite">
-                    <label for="is-favorite">Mark as Favorite</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <input type="checkbox" id="is-reviewed">
-                    <label for="is-reviewed">Mark as Reviewed</label>
-                </div>
-                <div class="form-actions">
-                    <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
-                    <button type="submit" id="save-btn" class="btn btn-primary">Save Question</button>
-                </div>
-            </form>
-        </div>
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="container">
+      <h1><i class="fas fa-graduation-cap"></i> InterviewPrep Pro</h1>
+      <div class="header-actions">
+        <button id="add-question-btn" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Add Question
+        </button>
+        <button id="random-mode-btn" class="btn btn-secondary">
+          <i class="fas fa-random"></i> Random Mode
+        </button>
+      </div>
     </div>
+  </header>
 
-    <!-- Random Mode Modal -->
-    <div id="random-modal" class="modal">
-        <div class="modal-content random-mode">
-            <div class="modal-header">
-                <h2>Random Question Mode</h2>
-                <span class="close">&times;</span>
-            </div>
-            <div class="random-question-container">
-                <div class="question-card">
-                    <h3 id="random-question-text">Question will appear here</h3>
-                    <div class="answer-section">
-                        <button id="show-answer-btn" class="btn btn-primary">Show Answer</button>
-                        <div id="random-answer-text" class="hidden">
-                            <p>Answer will appear here</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="random-controls">
-                    <button id="next-random-btn" class="btn btn-secondary">Next Question</button>
-                    <button id="exit-random-btn" class="btn btn-outline">Exit Random Mode</button>
-                </div>
-            </div>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Search Bar -->
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search questions...">
+          <i class="fas fa-search"></i>
         </div>
-    </div>
 
-    <!-- Confirmation Modal -->
-    <div id="confirm-modal" class="modal">
-        <div class="modal-content confirm-modal">
-            <div class="modal-header">
-                <h2>Confirm Action</h2>
-            </div>
-            <div class="modal-body">
-                <p id="confirm-message">Are you sure you want to delete this question?</p>
-            </div>
-            <div class="modal-actions">
-                <button id="confirm-cancel" class="btn btn-secondary">Cancel</button>
-                <button id="confirm-ok" class="btn btn-danger">Delete</button>
-            </div>
+        <!-- Categories -->
+        <div class="categories">
+          <h3>Categories</h3>
+          <ul id="categories-list">
+            <!-- Categories will be populated by JavaScript -->
+          </ul>
         </div>
-    </div>
 
-   <script src="script.js"></script>
+        <!-- Progress Stats -->
+        <div class="progress-stats">
+          <h3>Your Progress</h3>
+          <div class="stats">
+            <div class="stat-item">
+              <span class="stat-value" id="total-questions">0</span>
+              <span class="stat-label">Total Questions</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="reviewed-questions">0</span>
+              <span class="stat-label">Reviewed</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value" id="favorite-questions">0</span>
+              <span class="stat-label">Favorites</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <p class="progress-text" id="progress-text">0% Complete</p>
+        </div>
+      </aside>
+
+      <!-- Question List -->
+      <section class="question-list-container">
+        <div class="question-list-header">
+          <h2 id="current-category">All Questions</h2>
+          <div class="filter-options">
+            <button id="filter-all" class="filter-btn active">All</button>
+            <button id="filter-favorites" class="filter-btn">
+              <i class="fas fa-star"></i> Favorites
+            </button>
+            <button id="filter-unreviewed" class="filter-btn">Unreviewed</button>
+          </div>
+        </div>
+
+        <div class="question-list" id="question-list">
+          <!-- Questions will be populated by JavaScript -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Add/Edit Question Modal -->
+  <div id="question-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Add New Question</h2>
+        <span class="close">&times;</span>
+      </div>
+      <form id="question-form">
+        <div class="form-group">
+          <label for="question-text">Question</label>
+          <textarea id="question-text" placeholder="Enter your question..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="answer-text">Answer</label>
+          <textarea id="answer-text" placeholder="Enter the answer..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="question-category">Category</label>
+          <select id="question-category" required>
+            <!-- Categories will be populated by JavaScript -->
+          </select>
+        </div>
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="is-favorite">
+          <label for="is-favorite">Mark as Favorite</label>
+        </div>
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="is-reviewed">
+          <label for="is-reviewed">Mark as Reviewed</label>
+        </div>
+        <div class="form-actions">
+          <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+          <button type="button" id="example-btn" class="btn btn-outline">Load Example</button>
+          <button type="submit" id="save-btn" class="btn btn-primary">Save Question</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Random Mode Modal -->
+  <div id="random-modal" class="modal">
+    <div class="modal-content random-mode">
+      <div class="modal-header">
+        <h2>Random Question Mode</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="random-question-container">
+        <div class="question-card">
+          <h3 id="random-question-text">Question will appear here</h3>
+          <div class="answer-section">
+            <button id="show-answer-btn" class="btn btn-primary">Show Answer</button>
+            <div id="random-answer-text" class="hidden">
+              <p>Answer will appear here</p>
+            </div>
+          </div>
+        </div>
+        <div class="random-controls">
+          <button id="next-random-btn" class="btn btn-secondary">Next Question</button>
+          <button id="exit-random-btn" class="btn btn-outline">Exit Random Mode</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content confirm-modal">
+      <div class="modal-header">
+        <h2>Confirm Action</h2>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-message">Are you sure you want to delete this question?</p>
+      </div>
+      <div class="modal-actions">
+        <button id="confirm-cancel" class="btn btn-secondary">Cancel</button>
+        <button id="confirm-ok" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
+
 </html>
